@@ -1,0 +1,38 @@
+<!DOCTYPE company [
+    <!ELEMENT company (department* , employee*, project*, emp_child*, emp_project*)>
+    <!ELEMENT department(Dname)>
+    <!ATTLIST department 
+        DeptID ID #REQUIRED
+    >
+    <!ELEMENT employee(Name, Address_Street, Address_Num, Address_City, Address_Zipcode)>
+    <!ATTLIST employee
+        EmpID ID #REQUIRED
+    >
+    <!ELEMENT project(PName, Budget, StartDate, EndDate)>
+    <!ATTLIST project
+        ProjID ID #REQUIRED
+    >
+    <!ELEMENT emp_child(Birthday)>
+    <!ATTLIST emp_child
+        CName CDATA #REQUIRED
+        EmpID IDREF #REQUIRED
+    >
+    <!ELEMENT emp_project(Position)>
+    <!ATTLIST emp_project
+        ProjID IDREF #REQUIRED
+        EmpID IDREF #REQUIRED
+    >
+
+    <!ELEMENT Dname(#PCDATA)>
+    <!ELEMENT Name(#PCDATA)>
+    <!ELEMENT Address_Street(#PCDATA)>
+    <!ELEMENT Address_Num(#PCDATA)>
+    <!ELEMENT Address_City(#PCDATA)>
+    <!ELEMENT Address_Zipcode(#PCDATA)>
+    <!ELEMENT Birthday(#PCDATA)>
+    <!ELEMENT PName(#PCDATA)>
+    <!ELEMENT Budget(#PCDATA)>
+    <!ELEMENT StartDate(#PCDATA)>
+    <!ELEMENT EndDate(#PCDATA)>
+    <!ELEMENT Position(#PCDATA)>
+]>

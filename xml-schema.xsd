@@ -1,0 +1,93 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="company">
+    <xs:complexType name="companyType">
+        <xs:sequence>
+            <xs:element ref="department" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="employee" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="emp_child" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="project" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="emp_project" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:key name="deptKey">
+        <xs:selector xpath = "/company/department"/>
+        <xs:field xpath = "DeptID"/>
+    </xs:key>
+    <xs:key name="empKey">
+        <xs:selector xpath = "/company/employee"/>
+        <xs:field xpath = "EmpID"/>
+    </xs:key>
+    <xs:key name="projKey">
+        <xs:selector xpath = "/company/project"/>
+        <xs:field xpath = "ProjID"/>
+    </xs:key>
+    <xs:keyref name="childEmpFKey" refer="empKey">
+        <xs:selector xpath = "/company/emp_child"/>
+        <xs:field xpath = "EmpID"/>
+    </xs:keyref>
+    <xs:keyref name="projectEmpFKey" refer="empKey">
+        <xs:selector xpath = "/company/emp_project"/>
+        <xs:field xpath = "EmpID"/>
+    </xs:keyref>
+    <xs:keyref name="empProjFKey" refer="projKey">
+        <xs:selector xpath = "/company/emp_project"/>
+        <xs:field xpath = "ProjID"/>
+    </xs:keyref>
+</xs:element>
+
+<xs:element name="department">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Dname" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="DeptID" type="xs:ID" use="required"/>
+    </xs:complexType>
+</xs:element>
+
+<xs:element name="employee">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string" />
+            <xs:element name="Address_Street" type="xs:string" />
+            <xs:element name="Address_Num" type="xs:string" />
+            <xs:element name="Address_City" type="xs:string" />
+            <xs:element name="Address_Zipcode" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="EmpID" type="xs:ID" use="required"/>
+    </xs:complexType>
+</xs:element>
+
+<xs:element name="emp_child">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Birthday" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="EmpID" type="xs:IDREF" use="required"/>
+        <xs:attribute name="CName" type="xs:string" use="required"/>
+
+    </xs:complexType>
+</xs:element>
+
+<xs:element name="project">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="PName" type="xs:string" />
+            <xs:element name="Budget" type="xs:decimal" />
+            <xs:element name="StartDate" type="xs:date" />
+            <xs:element name="EndDate" type="xs:date" />
+        </xs:sequence>
+        <xs:attribute name="ProjID" type="xs:ID" use="required"/>
+    </xs:complexType>
+</xs:element>
+
+<xs:element name="emp_project">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Position" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="EmpID" type="xs:IDREF" use="required"/>
+        <xs:attribute name="ProjID" type="xs:IDREF" use="required"/>
+
+    </xs:complexType>
+</xs:element>
